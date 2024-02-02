@@ -87,6 +87,17 @@ class LinkedList{
                 temp = temp->next;
             }
         }
+        void reverse() {
+            Node<_type> *temp = head, *next=NULL, *prev=NULL;
+            while (temp!=NULL) {
+                next = temp->next;
+                temp->next = prev;
+                prev = temp;
+                temp = next;
+            }
+            head = prev;
+        }
+        
 };
 
 
@@ -95,15 +106,12 @@ int main(){
     l.insertStart(10);
     l.insertStart(20);
     l.insertStart(30);
-    l.insertEnd(40);
-    l.insertEnd(50);
+    l.insertStart(40);
+    l.insertStart(50);
     l.traverse();
-    l.insertAtN(30, 2);
+    l.reverse();
     cout << endl;
     l.traverse();
-    l.search(50);
-    l.search(54);
-    cout << endl << l.length();
     return 0;
 }
 
