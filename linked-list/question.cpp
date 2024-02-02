@@ -1,4 +1,6 @@
+
 #include <iostream>
+#include <stack>
 using namespace std;
 
 template <typename type_>
@@ -24,82 +26,68 @@ template <typename _type>
 class LinkedList{
     private:
         Node<_type> * head, *tail;
-        int len;
     public:
 
         LinkedList() {
             head = NULL;
-            tail = NULL;
-            len = 0;
         }
-        void insertEnd(_type a)
+        void insert(_type a)
         {
-            
-            Node<_type> *newNode = new Node<_type>(a);
-            if (tail == NULL) {
+            Node<_type> * newNode =new Node<_type>(a);
+            if (head == NULL)
+            {
                 head = newNode;
                 tail = newNode;
-                len++;
-                return;
             }
-            tail->next = newNode;
-            tail = newNode;
-            len++;
+            else {
+                newNode->next = NULL;
+                tail->next = newNode;
+                tail = newNode;
+            }
         }
-        int length() {
-            return len;
-        }
+
         void traverse() {
             Node<_type> * temp = head;
             while (temp)
             {
-                cout<<temp->data << " "; 
+                cout << "[" << temp->data << ", " << temp->next << "], ";
                 temp = temp->next;
             }
         }
-        Node<_type>* search(_type a)
-        {
-            Node<_type> *temp = head;
-            while (temp)
-            {
-                if (temp->data== a){
-                    return temp;
-                }
+
+
+        void reverseUsingStack() {
+            Node<_type> * temp = head;
+            using nodePtr = Node<_type>*;
+            stack<nodePtr> s;
+            while (temp->next !=NULL) {
+                s.push(temp);
                 temp = temp->next;
             }
-            return NULL;
-        }
-        void insertInBetween(int n, int a, int b)
-        {
-            Node<int> * node = search(a);
-            if (node == tail ) return;
-            if (node && node->next->data == b)
-            {
-                Node<_type> *tmp = new Node<int>(n);
-                tmp->next = node->next;
-                node->next = tmp;
+            head = temp;
+            while (!s.empty()) {
+                temp->next = s.top();
+                temp = temp->next;
+                s.pop();
             }
+            temp->next = NULL;
         }
 };
 
 
-int main(){
+int main() {
     LinkedList<int> l = LinkedList<int>(); 
-    int n=5, tmp, a,b;
-    // cin >> n;
-    for (int i=0; i<n; i++)
-    {
-        cin >> tmp;
-        l.insertEnd(tmp);
+    int temp;
+    while (true) {
+        cin >> temp;
+        l.insert(temp);
+        if(cin.get() == 10) break;
     }
-    cin >> tmp;
-    l.insertEnd(tmp);
-    cin >> n;
-    cin >> a >> b;
-    l.insertInBetween(n, a,b);
+    l.traverse();
+    cout << endl;
+    l.reverseUsingStack();
     cout << endl;
     l.traverse();
     return 0;
 }
-
 
