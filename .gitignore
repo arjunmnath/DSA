@@ -1,2 +1,16 @@
-*/.idea
-.idea
+
+# Ignore macOS .DS_Store files
+.DS_Store
+
+# Ignore JetBrains IDE configuration files in all directories
+.idea/
+.idea/*
+
+# Ignore CMake configuration files in all directories
+CMakeFiles/
+CMakeFiles/*
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
