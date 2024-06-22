@@ -1,5 +1,21 @@
 #include <iostream>
+#include <sstream>
 using namespace std;
+
+
+/*
+ * Constructor: LinkedList()
+ * Insertion:
+ *      void insertStart(type a)
+ *      void insertEnd(type a)
+ *      void insertAtN(type a)
+ *
+ * Miscellaneous:
+ *      int length()
+ *      void traverse()
+ *      void reverse()
+ *      void search()
+ */
 
 template <typename type_>
 class Node
@@ -8,17 +24,9 @@ class Node
     public:
         type_ data;
         Node<type_> *next;
-
-        Node() {
-            data = 0;
-            next = NULL;
-        }
-        Node(type_ a)
-        {
-            this->data = a;
-            this->next = NULL;
-        }
+        Node(const type_& a) : data(a), next(nullptr) {}
 };
+
 
 template <typename _type>
 class LinkedList{
@@ -29,7 +37,7 @@ class LinkedList{
         LinkedList() {
             head = NULL;
         }
-        void insertStart(_type a)
+        void insertStart(const _type& a)
         {
             Node<_type> * newNode =new Node<_type>(a);
             if (head == NULL)
@@ -41,7 +49,7 @@ class LinkedList{
                 head = newNode;
             }
         }
-        void insertEnd(_type a)
+        void insertEnd(const _type& a)
         {
             Node<_type> * temp = head, *newNode = new Node<_type>(a);
             while (temp->next) temp = temp->next;
@@ -56,7 +64,7 @@ class LinkedList{
             }
             return i;
         }
-        void insertAtN(_type a, int n)
+        void insertAtN(const _type& a, int n)
         {
             Node<_type>* temp = head, *newNode = new Node<_type>(a);
             for (int i=0; i<n-1; i++)
@@ -69,11 +77,13 @@ class LinkedList{
         }
         void traverse() {
             Node<_type> * temp = head;
+            ostringstream oss;
             while (temp)
             {
-                cout << "[" << temp->data << ", " << temp->next << "], ";
+                cout << "[" << temp->data.getData() << ", ";
                 temp = temp->next;
             }
+            cout << "]" << endl;
         }
         void search(_type a)
         {
@@ -101,19 +111,6 @@ class LinkedList{
 };
 
 
-int main(){
-    LinkedList<int> l = LinkedList<int>(); 
-    l.insertStart(10);
-    l.insertStart(20);
-    l.insertStart(30);
-    l.insertStart(40);
-    l.insertStart(50);
-    l.traverse();
-    l.reverse();
-    cout << endl;
-    l.traverse();
-    return 0;
-}
 
 
 /*
